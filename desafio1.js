@@ -6,13 +6,13 @@ this.libros= [libros]
 this.mascotas=[mascotas];
 }
 getFullName(){
-return console.log (`NOMBRE COMPLETO: ${this.nombre} ${this.apellido}`) 
+console.log (`NOMBRE COMPLETO: ${this.nombre} ${this.apellido}`) 
 }
 addMascotas (nombreMascotas){
 this.mascotas.push(nombreMascotas);
 }
 countMascotas (){
-return console.log(this.mascotas.length);
+console.log(this.mascotas.length);
 }
 addBook (nombreDelLibro,autorDelLibro){
 this.libros.push({
