@@ -1,36 +1,42 @@
-class usuario{
-constructor (nombre, apellido, libros, mascotas){
-this.nombre=nombre
-this.apellido=apellido;
-this.libros= [libros] 
-this.mascotas=[mascotas];
+const {promises: fs } = require('fs');
+
+
+class Contenedor {
+    constructor (ruta){
+        this.ruta = ruta
+    }
+
+     async getAll(){
+        try {
+            let data = await fs.readFile ( './productos.txt' , 'utf-8')
+            return data
+            } catch (error) {
+            return []
+            }
+        }
+     async save (producto){
+        let data = this.getAll()
+        let id = 0
+        let dataObj = null
+        if(data.lenght == 0){
+            id = 1
+        }else{
+            let dataObj = JSON.parse (data)
+            id = dataObj [ dataObj.lenght - 1 ].id +1
+        }
+        let newObjt = {id: id, ... producto}
+        this.dataObj.push ({titulo, precio, thumbnail})
+        try {fs.writeFile( './productos.txt' , JSON.stringify(newObjt, null, 2))
+            console.log ("se escribio con exito")
+        }catch(err) {
+            console.log( "ocurrio un error al escribir el archivo :\n" + err)
+        }
+     }
+     async getById (){
+        data = this.getAll()
+        
+
+     }
+     
 }
-getFullName(){
-console.log (`NOMBRE COMPLETO: ${this.nombre} ${this.apellido}`) 
-}
-addMascotas (nombreMascotas){
-this.mascotas.push(nombreMascotas);
-}
-countMascotas (){
-console.log(this.mascotas.length);
-}
-addBook (nombreDelLibro,autorDelLibro){
-this.libros.push({
-Titulo: nombreDelLibro, 
-Autor:autorDelLibro}); 
-} 
-getNameBook(){
-let nameBook = this.libros.map(function(titulos){
-return titulos.Titulo
-})
-console.log (nameBook) 
-}
-}
-const usuario1 = new usuario("Maximiliano", "Gonzalez", {Titulo:"El resplandor" , Autor:"Stephen King"}, "Spike")
-usuario1.addBook ("Cien años de soledad" , "Gabriel Garcia Marquez")
-usuario1.addBook("el Hobbit", "JRR Tolkien")
-usuario1.addMascotas("blanquito")
-usuario1.getFullName()
-usuario1.countMascotas()
-usuario1.getNameBook()
-console.log (usuario1)
+
